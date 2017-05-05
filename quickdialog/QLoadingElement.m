@@ -27,8 +27,7 @@
     return self;
 }
 
-- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller {
-    _controller = controller;
+- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView {
     QTableViewCell *const cell = [[QTableViewCell alloc] init];
     [cell applyAppearanceForElement:self];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -36,10 +35,10 @@
     [spin startAnimating];
     [spin sizeToFit];
     if (self.title == nil){
-        CGFloat posX = (_controller.view.frame.size.width-spin.frame.size.width)/2;
+        CGFloat posX = (_viewController.view.frame.size.width-spin.frame.size.width)/2;
         spin.center = CGPointMake(posX, 12);
     } else {
-        CGFloat posX = (_controller.view.frame.size.width-(spin.frame.size.width/2)-10);
+        CGFloat posX = (_viewController.view.frame.size.width-(spin.frame.size.width/2)-10);
         spin.center = CGPointMake(posX, 24);
     }
 

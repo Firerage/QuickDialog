@@ -43,12 +43,13 @@
 
     [self performAction];
     
-    [self handleEditingChanged];
+    if (self.onValueChanged) {
+        self.onValueChanged(self);
+    }
 }
 
 
-- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller {
-    self.controller = controller;
+- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView {
     QTableViewCell *cell = [[QTableViewCell alloc] init];
     cell.backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     cell.backgroundColor = [UIColor clearColor];

@@ -26,7 +26,7 @@
 
 - (QMapElement *)initWithTitle:(NSString *)title coordinate:(CLLocationCoordinate2D)coordinate {
     self = [super init];
-    _title = title;
+    self.title = title;
     _coordinate = coordinate;
     return self;
 }
@@ -39,9 +39,9 @@
     _coordinate.longitude = lng;
 }
 
-- (void)selected:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller indexPath:(NSIndexPath *)path {
-    QMapViewController *mapController = [[QMapViewController alloc] initWithTitle:_title coordinate:_coordinate];
-    [controller displayViewController:mapController];
+- (void)selected:(QuickDialogTableView *)tableView indexPath:(NSIndexPath *)indexPath indexPath:(NSIndexPath *)path {
+//    QMapViewController *mapController = [[QMapViewController alloc] initWithTitle:_title coordinate:_coordinate];
+//    [controller displayViewController:mapController];
 
 }
 @end

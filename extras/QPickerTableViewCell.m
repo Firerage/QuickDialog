@@ -19,7 +19,7 @@
 
 - (QPickerTableViewCell *)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    if ((self = [self initWithStyle:style reuseIdentifier:reuseIdentifier]))
+    if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]))
     {
         [self createSubviews];
 		self.selectionStyle = UITableViewCellSelectionStyleBlue;
@@ -109,7 +109,7 @@
 {
     self.pickerElement.value = [self getPickerViewValue];
     [self prepareForElement:_entryElement inTableView:_quickformTableView];
-    [self.pickerElement handleEditingChanged];
+    [self.pickerElement handleEditingChanged:self];
 }
 
 #pragma mark - Getting/setting value from UIPickerView

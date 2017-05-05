@@ -57,9 +57,7 @@
     return self;
 }
 
-- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller {
-    _controller = controller;
-    
+- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView {
     QTableViewCell *cell= [self getOrCreateEmptyCell:tableView];
 
     [cell applyAppearanceForElement:self];
@@ -82,21 +80,11 @@
     return cell;
 }
 
-
-
-- (void)selectedAccessory:(QuickDialogTableView *)tableView  controller:(QuickDialogController *)controller indexPath:(NSIndexPath *)indexPath{
-    if (self.controllerAccessoryAction!=NULL){
-            SEL selector = NSSelectorFromString(self.controllerAccessoryAction);
-            if ([controller respondsToSelector:selector]) {
-                ((void (*)(id, SEL, id)) objc_msgSend)(controller, selector, self);
-            }  else {
-                NSLog(@"No method '%@' was found on controller %@", self.controllerAccessoryAction, [controller class]);
-            }
-        }
+- (void)selectedAccessory:(QuickDialogTableView *)tableView indexPath:(NSIndexPath *)indexPath {
+    [self performAccessoryAction];
 }
 
-- (void)selected:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller indexPath:(NSIndexPath *)indexPath {
-    _controller = controller;
+- (void)selected:(QuickDialogTableView *)tableView indexPath:(NSIndexPath *)indexPath {
     [[tableView cellForRowAtIndexPath:indexPath] becomeFirstResponder];
     [self performAction];
 }
@@ -143,21 +131,26 @@
 
     if (self.controllerAction!=NULL){
         SEL selector = NSSelectorFromString(self.controllerAction);
-        if ([_controller respondsToSelector:selector]) {
-			((void (*)(id, SEL, id)) objc_msgSend)(_controller, selector, self);
+        
+        if ([_viewController respondsToSelector:selector]) {
+			((void (*)(id, SEL, id)) objc_msgSend)(_viewController, selector, self);
         }  else {
-            NSLog(@"No method '%@' was found on controller %@", self.controllerAction, [_controller class]);
+            NSLog(@"No method '%@' was found on controller %@", self.controllerAction, [_viewController class]);
         }
+    }
+    
+    if (self.didSelectedElement) {
+        self.didSelectedElement(self);
     }
 }
 
 -(void)performAccessoryAction{
-    if (_controller!=nil && self.controllerAccessoryAction!=nil) {
+    if (_viewController!=nil && self.controllerAccessoryAction!=nil) {
         SEL selector = NSSelectorFromString(self.controllerAccessoryAction);
-        if ([_controller respondsToSelector:selector]) {
-            ((void (*)(id, SEL, id)) objc_msgSend)(_controller, selector, self);
+        if ([_viewController respondsToSelector:selector]) {
+            ((void (*)(id, SEL, id)) objc_msgSend)(_viewController, selector, self);
         }  else {
-            NSLog(@"No method '%@' was found on controller %@", self.controllerAccessoryAction, [_controller class]);
+            NSLog(@"No method '%@' was found on controller %@", self.controllerAccessoryAction, [_viewController class]);
         }
     }
 }

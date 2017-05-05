@@ -26,15 +26,13 @@
 
 @property(nonatomic, strong) QRootElement *root;
 
-@property(weak, nonatomic, readonly) QuickDialogController *controller;
-
 @property(nonatomic, weak) id<QuickDialogDelegate> quickDialogDelegate;
 @property(nonatomic, strong) id <UITableViewDelegate> quickDialogTableDelegate;
 @property(nonatomic, strong) id <UITableViewDataSource> quickDialogDataSource;
 
 @property(nonatomic) BOOL deselectRowWhenViewAppears;
 
-- (QuickDialogTableView *)initWithController:(QuickDialogController *)controller;
+- (QuickDialogTableView *)initWithRootElement:(QRootElement *)rootElement;
 - (void)deselectRows;
 
 - (UITableViewCell *)cellForElement:(QElement *)element;

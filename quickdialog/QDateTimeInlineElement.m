@@ -13,7 +13,6 @@
 //
 
 #import "QDateEntryTableViewCell.h"
-#import "QuickDialogController.h"
 #import "QDateInlineTableViewCell.h"
 
 @implementation QDateTimeInlineElement {
@@ -22,6 +21,7 @@
     NSDate *_minimumDate;
 
     __weak QTableViewCell *_cell;
+    __weak QuickDialogTableView *_tableView;
 }
 
 @synthesize mode = _mode;
@@ -83,8 +83,9 @@
     return [self initWithTitle:nil date:date andMode:mode];
 }
 
-- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller {
+- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView {
 
+    _tableView = tableView;
     QTableViewCell *cell= self.showPickerInCell ? [self getInlineCell:tableView] : [self getEntryCell:tableView];
     return cell;
 }
@@ -125,9 +126,9 @@
     if (self.showPickerInCell){
         BOOL shouldEdit = !_cell.isEditing;
 
-        [((QuickDialogController *)self.controller).quickDialogTableView endEditingOnVisibleCells];
+        [_tableView endEditingOnVisibleCells];
         [_cell setEditing:shouldEdit];
-        [((QuickDialogController *)self.controller).quickDialogTableView reloadRowHeights];
+        [_tableView reloadRowHeights];
     }
 }
 

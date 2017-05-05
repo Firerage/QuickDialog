@@ -21,7 +21,7 @@
   QLabelElement: simple inline label + value cell
 */
 
-@interface QLabelElement : QRootElement {
+@interface QLabelElement : QElement {
 
 @protected
     id _value;

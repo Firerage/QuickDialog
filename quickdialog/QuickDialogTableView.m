@@ -15,9 +15,10 @@
 #import "QuickDialogTableView.h"
 #import "QuickDialog.h"
 #import "QuickDialogDelegate.h"
+#import "QRootElement+Appearance.h"
 
 @interface QuickDialogTableView ()
-@property(weak, nonatomic, readwrite) QuickDialogController *controller;
+
 @end
 
 @implementation QuickDialogTableView {
@@ -27,14 +28,9 @@
 @synthesize root = _root;
 @synthesize deselectRowWhenViewAppears = _deselectRowWhenViewAppears;
 
-- (QuickDialogController *)controller {
-    return _controller;
-}
-
-- (QuickDialogTableView *)initWithController:(QuickDialogController *)controller {
-    self = [super initWithFrame:CGRectMake(0, 0, 0, 0) style:controller.root.grouped ? UITableViewStyleGrouped : UITableViewStylePlain];
+- (QuickDialogTableView *)initWithRootElement:(QRootElement *)rootElement {
+    self = [super initWithFrame:CGRectMake(0, 0, 0, 0) style:rootElement.grouped ? UITableViewStyleGrouped : UITableViewStylePlain];
     if (self!=nil){
-        self.controller = controller;
         self.deselectRowWhenViewAppears = YES;
 
         self.quickDialogDataSource = [[QuickDialogDataSource alloc] initForTableView:self];
@@ -43,7 +39,7 @@
         self.quickDialogTableDelegate = [[QuickDialogTableDelegate alloc] initForTableView:self];
         self.delegate = self.quickDialogTableDelegate;
 
-        self.root = _controller.root;
+        self.root = rootElement;
 
         self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     }

@@ -27,18 +27,18 @@
 
 
 - (void)createElements {
-    _sections = nil;
-    self.presentationMode = QPresentationModeNavigationInPopover;
-    _internalRadioItemsSection = [[QSection alloc] init];
-
-    [self addSection:_internalRadioItemsSection];
-
-    for (NSUInteger i=0; i< [_items count]; i++){
-        QRadioItemElement *element = [[QRadioItemElement alloc] initWithIndex:i RadioElement:self];
-        element.imageNamed = [self.itemsImageNames objectAtIndex:i];
-        element.title = [self.items objectAtIndex:i];
-        [_internalRadioItemsSection addElement:element];
-    }
+//    _sections = nil;
+//    self.presentationMode = QPresentationModeNavigationInPopover;
+//    _internalRadioItemsSection = [[QSection alloc] init];
+//
+//    [self addSection:_internalRadioItemsSection];
+//
+//    for (NSUInteger i=0; i< [_items count]; i++){
+//        QRadioItemElement *element = [[QRadioItemElement alloc] initWithIndex:i RadioElement:self];
+//        element.imageNamed = [self.itemsImageNames objectAtIndex:i];
+//        element.title = [self.items objectAtIndex:i];
+//        [_internalRadioItemsSection addElement:element];
+//    }
 }
 
 -(void)setItems:(NSArray *)items {
@@ -118,17 +118,17 @@
     return self;
 }
 
-- (void)selected:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller indexPath:(NSIndexPath *)path {
-    if ((self.sections == nil) || !self.enabled){
-        return;
-    }
+- (void)selected:(QuickDialogTableView *)tableView indexPath:(NSIndexPath *)indexPath indexPath:(NSIndexPath *)path {
+//    if ((self.sections == nil) || !self.enabled){
+//        return;
+//    }
 
-    [controller displayViewControllerForRoot:self];
+//    [controller displayViewControllerForRoot:self];
 }
 
 
-- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller {
-    QEntryTableViewCell *cell = (QEntryTableViewCell *) [super getCellForTableView:tableView controller:controller];
+- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView {
+    QEntryTableViewCell *cell = (QEntryTableViewCell *) [super getCellForTableView:tableView];
 
     id selectedValue = nil;
     if (_selected >= 0 && _selected <_items.count){
@@ -150,7 +150,7 @@
         cell.textField.textAlignment = self.appearance.labelAlignment;
         cell.textField.textColor = self.enabled ? self.appearance.valueColorEnabled : self.appearance.valueColorDisabled;
     } else {
-        cell.textLabel.text = _title;
+        cell.textLabel.text = self.title;
         cell.textField.text = [selectedValue description];
         cell.textField.textAlignment = self.appearance.valueAlignment;
         cell.textField.textColor = self.enabled ? self.appearance.labelColorEnabled : self.appearance.labelColorDisabled;
@@ -162,13 +162,13 @@
 -(void)setSelected:(NSInteger)aSelected {
     _selected = aSelected;
 
-    self.preselectedElementIndex = [NSIndexPath indexPathForRow:_selected inSection:0];
-
-    if([_itemsImageNames objectAtIndex:(NSUInteger) self.selected] != nil) {
-        self.image = [UIImage imageNamed:[_itemsImageNames objectAtIndex:(NSUInteger) self.selected]];
-    }
-    
-    [self handleEditingChanged];
+//    self.preselectedElementIndex = [NSIndexPath indexPathForRow:_selected inSection:0];
+//
+//    if([_itemsImageNames objectAtIndex:(NSUInteger) self.selected] != nil) {
+//        self.image = [UIImage imageNamed:[_itemsImageNames objectAtIndex:(NSUInteger) self.selected]];
+//    }
+//    
+//    [self handleEditingChanged];
 }
 
 - (void)fetchValueIntoObject:(id)obj {

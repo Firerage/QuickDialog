@@ -17,25 +17,45 @@
 #import "QAppearance.h"
 #import "QElement+Appearance.h"
 
+@interface QTextElement ()
+
+@property(nonatomic, copy) NSString *text;
+@property(nonatomic, copy) NSString *detailText;
+@property(nonatomic, strong) UIImage *image;
+
+@end
+
 @implementation QTextElement
-
-@synthesize text = _text;
-@synthesize color = _color;
-
 
 - (QTextElement *)init {
    self = [super init];
-    _color = [UIColor blackColor];
+    self.color = [UIColor blackColor];
     return self;
 }
 
 - (QTextElement *)initWithText:(NSString *)text {
     self = [self init];
-    _text = text;
+    self.text = text;
     return self;
 }
 
-- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller {
+- (QTextElement *)initWithText:(NSString *)text detailText:(NSString *)detailText
+{
+    self = [self init];
+    self.text = text;
+    self.detailText = detailText;
+    return self;
+}
+
+- (QTextElement *)initWithKey:(NSString *)key text:(NSString *)text detailText:(NSString *)detailText
+{
+    self = [self initWithKey:key];
+    self.text = text;
+    self.detailText = detailText;
+    return self;
+}
+
+- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"QuickformText"]];
     if (cell == nil){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"QuickformText"];
@@ -45,10 +65,10 @@
     cell.detailTextLabel.numberOfLines = 0;
 
     cell.textLabel.adjustsFontSizeToFitWidth = YES;
-    cell.textLabel.text = self.title;
+    cell.textLabel.text = self.text;
     cell.detailTextLabel.font = self.appearance.valueFont;
     cell.detailTextLabel.textColor = _color;
-    cell.detailTextLabel.text = _text;
+    cell.detailTextLabel.text = self.detailText;
 
     cell.imageView.image = _image;
 
@@ -64,7 +84,7 @@
     CGSize constraint = CGSizeMake(tableView.frame.size.width-(tableView.root.grouped ? 40.f : 20.f), 20000);
     CGSize  size= [_text sizeWithFont:self.appearance.valueFont constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
 	CGFloat predictedHeight = size.height + 40.0f;
-    if (self.title!=nil)
+    if (self.text!=nil)
         predictedHeight+=30;
 	return (_height >= predictedHeight) ? _height : predictedHeight;
 }

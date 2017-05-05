@@ -30,8 +30,6 @@
 @synthesize controllerName = _controllerName;
 @synthesize sectionTemplate = _sectionTemplate;
 @synthesize emptyMessage = _emptyMessage;
-@synthesize onValueChanged = _onValueChanged;
-@synthesize presentationMode = _presentationMode;
 @synthesize preselectedElementIndex = _preselectedElementIndex;
 
 
@@ -54,13 +52,6 @@
     for (QSection *section in sections){
         [self addSection:section];
     }
-}
-
-
-+ (instancetype)rootForJSON:(NSString *)jsonFileName withObject:(id)object {
-    QRootElement *root = [self rootForJSON:jsonFileName];
-    root.object = object;
-    return root;
 }
 
 - (QSection *)getSectionForIndex:(NSInteger)index {
@@ -103,28 +94,8 @@
     return NSNotFound;
 }
 
-- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller {
-    UITableViewCell *cell = [super getCellForTableView:tableView controller:controller];
-    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-    if (_title!= nil)
-        cell.textLabel.text = [NSString stringWithFormat:@"%@", _title];
-    return cell;
-}
-
-- (void)selected:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller indexPath:(NSIndexPath *)path {
-    [super selected:tableView controller:controller indexPath:path];
-
-    if (self.sections==nil)
-            return;
-
-    [controller displayViewControllerForRoot:self];
-}
-
-- (void)handleEditingChanged
-{    
-    if(self.onValueChanged) {
-        self.onValueChanged(self);
-    }
+-(void)bindToObject:(id)data {
+    [[QBindingEvaluator new] bindObject:self toData:data];
 }
 
 - (void)fetchValueIntoObject:(id)obj {
@@ -135,29 +106,9 @@
 }
 
 - (void)fetchValueUsingBindingsIntoObject:(id)obj {
-    [super fetchValueUsingBindingsIntoObject:obj];
     for (QSection *s in _sections){
         [s fetchValueUsingBindingsIntoObject:obj];
     }
-}
-
-- (void)bindToObject:(id)data shallow:(BOOL)shallow
-{
-    if (!shallow) {
-        if ([self.bind length]==0 || [self.bind rangeOfString:@"iterate"].location == NSNotFound)  {
-            for (QSection *sections in self.sections) {
-                [sections bindToObject:data];
-            }
-        } else {
-            [self.sections removeAllObjects];
-        }
-    }
-
-    [[QBindingEvaluator new] bindObject:self toData:data];
-}
-
-- (void)bindToObject:(id)data {
-    [self bindToObject:data shallow:NO];
 }
 
 -(void)dealloc {

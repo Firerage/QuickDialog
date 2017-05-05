@@ -32,5 +32,5 @@
 
 - (QFloatElement *)init;
 - (QFloatElement *)initWithTitle:(NSString *)string value:(float)value;
-- (QElement *)initWithValue:(float)value;
+- (QFloatElement *)initWithValue:(float)value;
 @end

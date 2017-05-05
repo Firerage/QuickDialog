@@ -5,13 +5,11 @@
 //
 
 
-#import "QAppearance.h"
-#import "QElement+Appearance.h"
 #import "QClassicAppearance.h"
-#import "QSection.h"
 #import "QuickDialogTableView.h"
+#import "QSection.h"
 #import "QRootElement.h"
-
+#import "QRootElement+Appearance.h"
 
 @implementation QClassicAppearance {
 
@@ -119,7 +117,7 @@
 
     if (section.title==nil)
         return 0;
-
+    
     if (!tableView.root.grouped)  {
 
         return section.footer == NULL
@@ -134,7 +132,7 @@
         CGFloat maxHeight = 9999;
         CGSize maximumLabelSize = CGSizeMake(maxWidth,maxHeight);
         QAppearance *appearance = ((QuickDialogTableView *)tableView).root.appearance;
-        CGSize expectedLabelSize = [section.title sizeWithFont:appearance==nil? [UIFont systemFontOfSize:[UIFont labelFontSize]] : appearance.sectionTitleFont
+        CGSize expectedLabelSize = [section.title sizeWithFont:appearance==nil? [UIFont systemFontOfSize:[UIFont labelFontSize]] : self.sectionTitleFont
                                              constrainedToSize:maximumLabelSize
                                                  lineBreakMode:NSLineBreakByWordWrapping];
 

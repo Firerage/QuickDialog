@@ -7,7 +7,6 @@
 //
 
 
-#import "QuickDialogController.h"
 #import <UIKit/UIKit.h>
 #import "QSelectItemElement.h"
 #import "QAppearance.h"
@@ -26,7 +25,7 @@
     if (self = [super init]) {
         _selectSection = section;
         _index = index;
-        _title = [[_selectSection.items objectAtIndex:_index] description];
+        self.title = [[_selectSection.items objectAtIndex:_index] description];
     }
     return self;
 }
@@ -37,9 +36,9 @@
     }
 }
 
-- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller
+- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView
 {
-    UITableViewCell *cell = [super getCellForTableView:tableView controller:controller];
+    UITableViewCell *cell = [super getCellForTableView:tableView];
     cell.selectionStyle = self.enabled ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
     if ([_selectSection.selectedIndexes containsObject:[NSNumber numberWithUnsignedInteger:_index]] ) {
         [self updateCell:cell];
@@ -49,9 +48,9 @@
     return cell;
 }
 
-- (void)selected:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller indexPath:(NSIndexPath *)indexPath
+- (void)selected:(QuickDialogTableView *)tableView indexPath:(NSIndexPath *)indexPath
 {
-    [super selected:tableView controller:controller indexPath:indexPath];
+    [super selected:tableView indexPath:indexPath];
     
     NSNumber *numberIndex = [NSNumber numberWithUnsignedInteger:_index];
     UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];

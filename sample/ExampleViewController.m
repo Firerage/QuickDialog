@@ -14,6 +14,7 @@
 
 #import "ExampleViewController.h"
 #import "QWebElement.h"
+#import "SampleDataBuilder.h"
 
 @implementation ExampleViewController
 
@@ -21,6 +22,19 @@
 {
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    __weak typeof(self) weakSelf = self;
+    QElement *element = [self.root elementWithKey:@"login"];
+    
+    element.didSelectedElement = ^(QElement *e){
+//        [weakSelf displayViewControllerForRoot:[[QRootElement alloc] initWithJSONFile:@"loginform"]];
+        [weakSelf displayViewControllerForRoot:[SampleDataBuilder createPickerRoot]];
+    };
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

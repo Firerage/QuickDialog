@@ -14,7 +14,7 @@
 - (QMailElement *)initWithTitle:(NSString *)title subject:(NSString *)subject messageBody:(NSString *)messageBody toRecipients:(NSArray *)toRecipients ccRecipients:(NSArray *)ccRecipients bccRecipients:(NSArray *)bccRecipients {
     self = [super init];
     if (self != nil) {
-        _title = title;
+        self.title = title;
         _subject = subject;
         _toRecipients = toRecipients;
         _ccRecipients = ccRecipients;
@@ -23,28 +23,28 @@
     return self;
 }
 
-- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller {
+- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView {
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    UITableViewCell *cell = [super getCellForTableView:tableView controller:controller];
+    UITableViewCell *cell = [super getCellForTableView:tableView];
     cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     return cell;
 }
 
 
-- (void)selected:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller indexPath:(NSIndexPath *)path {
+- (void)selected:(QuickDialogTableView *)tableView indexPath:(NSIndexPath *)indexPath indexPath:(NSIndexPath *)path {
     [self performAction];
 	
     if([MFMailComposeViewController canSendMail]) {        
         MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
         mc.mailComposeDelegate = self;
-        [mc setTitle:_title];
+        [mc setTitle:self.title];
         [mc setSubject:_subject];
         [mc setMessageBody:_messageBody isHTML:NO];
         [mc setToRecipients:_toRecipients];
         [mc setCcRecipients:_ccRecipients];
         [mc setBccRecipients:_bccRecipients];
         
-        [controller displayViewController:mc];
+//        [controller displayViewController:mc];
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Mail Accounts" message:@"Please set up a Mail account in order to send email." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];

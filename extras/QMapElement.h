@@ -21,7 +21,7 @@
   QMapElement: when selected, shows a fullscreen map with the location selected. Requires a lat/long value.
 */
 
-@interface QMapElement : QRootElement {
+@interface QMapElement : QElement {
 
 @protected
     CLLocationCoordinate2D _coordinate;

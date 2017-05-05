@@ -15,7 +15,6 @@
 #import <objc/message.h>
 
 #import "QBooleanElement.h"
-#import "QuickDialogController.h"
 
 @implementation QBooleanElement {
 }
@@ -56,10 +55,9 @@
     }
 }
 
-- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller {
-    UITableViewCell *cell = [super getCellForTableView:tableView controller:controller];
-    cell.accessoryType = self.sections!= nil ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
-    cell.selectionStyle = self.sections!= nil ? UITableViewCellSelectionStyleBlue: UITableViewCellSelectionStyleNone;
+- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView {
+    UITableViewCell *cell = [super getCellForTableView:tableView];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     if ((_onImage==nil) && (_offImage==nil))  {
         UISwitch *boolSwitch = [[UISwitch alloc] init];
@@ -82,7 +80,7 @@
     return cell;
 }
 
-- (void)selected:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller indexPath:(NSIndexPath *)indexPath {
+- (void)selected:(QuickDialogTableView *)tableView indexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     self.boolValue = !self.boolValue;
     if ([cell.accessoryView class] == [UIButton class]) {
@@ -106,14 +104,13 @@
 -(void)setBoolValue:(BOOL)boolValue {
     _boolValue = boolValue;
     
-    [self handleEditingChanged];
+    if (self.onValueChanged) {
+        self.onValueChanged(self);
+    }
 }
 
 - (void)switched:(id)boolSwitch {
     self.boolValue = ((UISwitch *)boolSwitch).on;
-    if ((self.controller != nil && self.controllerAction != nil) || _onSelected != nil) {
-        [self performAction];
-    }
 }
 
 - (void)fetchValueIntoObject:(id)obj {

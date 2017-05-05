@@ -46,8 +46,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (self.url==nil && [self.root.object isKindOfClass:[NSString class]])
-        self.url = (NSString *) self.root.object;
+//    if (self.url==nil && [self.root.object isKindOfClass:[NSString class]])
+//        self.url = (NSString *) self.root.object;
 
     if (self.url!=nil){
         [self loading:YES];

@@ -1,14 +1,20 @@
-#import <objc/runtime.h>
-#import "QElement+Appearance.h"
-#import "QClassicAppearance.h"
-#import "QFlatAppearance.h"
-#import "QRootElement.h"
+//
+//  QRootElement+Appearance.m
+//  QuickDialog
+//
+//  Created by 陈嗣圣 on 2017/5/5.
+//
+//
 
+#import "QRootElement.h"
+#import "QAppearance.h"
+#import "QClassicAppearance.h"
+#import "QRootElement+Appearance.h"
+#import <objc/runtime.h>
 
 static void * const KEY_APPEARANCE_OBJECT = (void*)&KEY_APPEARANCE_OBJECT;
 
-@implementation QElement (Appearance)
-
+@implementation QRootElement (Appearance)
 
 + (QAppearance *)appearance {
     QAppearance *appearance = objc_getAssociatedObject(self, KEY_APPEARANCE_OBJECT);
@@ -33,7 +39,7 @@ static void * const KEY_APPEARANCE_OBJECT = (void*)&KEY_APPEARANCE_OBJECT;
 
 - (QAppearance *)appearance {
     QAppearance *objAppearance = objc_getAssociatedObject(self, KEY_APPEARANCE_OBJECT);
-
+    
     if (objAppearance==nil) {
         objAppearance = [[self class] appearance];
         self.appearance = objAppearance;

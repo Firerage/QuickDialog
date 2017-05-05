@@ -53,7 +53,7 @@
 
 - (BOOL)canTakeFocus;
 
-- (void) fieldDidEndEditing;
+- (void)fieldDidEndEditing;
 
 - (void)handleEditingChanged:(QEntryTableViewCell *)cell;
 

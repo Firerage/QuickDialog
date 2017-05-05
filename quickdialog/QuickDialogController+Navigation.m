@@ -40,7 +40,7 @@
 
 - (void)displayViewControllerForRoot:(QRootElement *)root {
     QuickDialogController *newController = [self controllerForRoot: root];
-    [self displayViewController:newController withPresentationMode:root.presentationMode];
+    [self displayViewController:newController withPresentationMode:QPresentationModeNormal];
 }
 
 - (void)dismissModalViewController {

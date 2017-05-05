@@ -41,7 +41,7 @@
         cell.detailTextLabel.text = nil;
         cell.textField.textAlignment = self.appearance.labelAlignment;
     } else {
-        cell.textLabel.text = _title;
+        cell.textLabel.text = self.title;
         cell.textField.text = [[selectedValue objectAtIndex:0] description];
         cell.textField.textAlignment = self.appearance.valueAlignment;
     }
@@ -58,19 +58,19 @@
 
 
 - (void)createElements {
-    _sections = nil;
-    self.presentationMode = QPresentationModeNavigationInPopover;
-    _internalRadioItemsSection = [[QSection alloc] init];
-    _parentSection = _internalRadioItemsSection;
-
-    [self addSection:_parentSection];
-
-    for (NSUInteger i=0; i< [_items count]; i++){
-        QRadioItemElement *element = [[QRadioItemElement alloc] initWithIndex:i RadioElement:self];
-        element.image = [self getImageFromItem:[self.items objectAtIndex:i]];
-        element.title = [[self.items objectAtIndex:i] objectAtIndex:0];
-        [_parentSection addElement:element];
-    }
+//    _sections = nil;
+//    self.presentationMode = QPresentationModeNavigationInPopover;
+//    _internalRadioItemsSection = [[QSection alloc] init];
+//    _parentSection = _internalRadioItemsSection;
+//
+//    [self addSection:_parentSection];
+//
+//    for (NSUInteger i=0; i< [_items count]; i++){
+//        QRadioItemElement *element = [[QRadioItemElement alloc] initWithIndex:i RadioElement:self];
+//        element.image = [self getImageFromItem:[self.items objectAtIndex:i]];
+//        element.title = [[self.items objectAtIndex:i] objectAtIndex:0];
+//        [_parentSection addElement:element];
+//    }
 }
 
 + (UIColor *)colorFromHexString:(NSString *)hexString {
@@ -90,7 +90,7 @@
     }
     self.selected = 0;
 
-    [self handleEditingChanged];
+//    [self handleEditingChanged];
 }
 
 

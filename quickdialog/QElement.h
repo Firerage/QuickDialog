@@ -16,7 +16,15 @@
 
 @class QSection;
 @class QuickDialogTableView;
-@class QuickDialogController;
+
+typedef enum  {
+    QPresentationModeNormal = 0,
+    QPresentationModePopover,
+    QPresentationModeNavigationInPopover,
+    QPresentationModeModalForm,
+    QPresentationModeModalFullScreen,
+    QPresentationModeModalPage
+} QPresentationMode;
 
 /**
 
@@ -28,7 +36,7 @@
 
 @protected
     __weak QSection *_parentSection;
-    __weak UIViewController *_controller;
+    __weak UIViewController *_viewController;
     NSString *_key;
     NSString *_bind;
 	
@@ -50,11 +58,12 @@
 @property(nonatomic,readonly) NSUInteger visibleIndex;
 
 @property(nonatomic, weak) QSection *parentSection;
-@property(nonatomic, weak) UIViewController *controller;
+@property(nonatomic, weak) UIViewController *viewController;
 
 @property(nonatomic, retain) NSString *key;
 @property(nonatomic, retain) id object;
 @property(nonatomic, retain) NSString *bind;
+@property(nonatomic, copy) NSString *title;
 
 @property (nonatomic) QLabelingPolicy labelingPolicy;
 
@@ -66,19 +75,23 @@
 // Corresponds to UITableViewCell property accessibilityIdentifier
 @property(nonatomic, copy) NSString *accessibilityIdentifier;
 
+@property(nonatomic) QPresentationMode presentationMode;
+
+@property(nonatomic, copy) void (^didSelectedElement)(QElement *);
+
+@property(nonatomic, copy) void (^onValueChanged)(QElement *);
+
 - (QElement *)initWithKey:(NSString *)key;
 
 - (NSIndexPath*) getIndexPath;
 
-- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller;
+- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView;
 
 -(QTableViewCell *)getOrCreateEmptyCell:(QuickDialogTableView *)tableView;
 
+- (void)selectedAccessory:(QuickDialogTableView *)tableView indexPath:(NSIndexPath *)indexPath;
 
-- (void)selectedAccessory:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller indexPath:(NSIndexPath *)indexPath;
-
-
-- (void)selected:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller indexPath:(NSIndexPath *)indexPath;
+- (void)selected:(QuickDialogTableView *)tableView indexPath:(NSIndexPath *)indexPath;
 
 - (CGFloat)getRowHeightForTableView:(QuickDialogTableView *)tableView;
 

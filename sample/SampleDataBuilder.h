@@ -23,4 +23,7 @@
 }
 
 + (QRootElement *)create;
+
++ (QRootElement *)createPickerRoot;
+
 @end

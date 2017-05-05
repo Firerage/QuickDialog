@@ -36,8 +36,8 @@
     return self;
 }
 
-- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller {
-    UITableViewCell *cell = [super getCellForTableView:tableView controller:controller];
+- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView {
+    UITableViewCell *cell = [super getCellForTableView:tableView];
     cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     NSInteger selectedIndex = _radioElement==nil? _radioSection.selected : _radioElement.selected;
     cell.accessoryType = selectedIndex == _index ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
@@ -47,8 +47,8 @@
     return cell;
 }
 
-- (void)selected:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller indexPath:(NSIndexPath *)indexPath {
-    [super selected:tableView controller:controller indexPath:indexPath];
+- (void)selected:(QuickDialogTableView *)tableView indexPath:(NSIndexPath *)indexPath {
+    [super selected:tableView indexPath:indexPath];
 
     NSInteger selectedIndex = _radioElement==nil? _radioSection.selected : _radioElement.selected;
 
@@ -68,7 +68,7 @@
         tableView.userInteractionEnabled = NO;
 
         [NSTimer scheduledTimerWithTimeInterval:0.3
-            target:controller
+            target:_viewController
             selector:@selector(popToPreviousRootElement)
             userInfo:nil
             repeats:NO];

@@ -15,6 +15,8 @@
 #import <sys/ucred.h>
 #import "QuickDialogTableDelegate.h"
 #import "QuickDialog.h"
+#import "QRootElement+Appearance.h"
+
 @implementation QuickDialogTableDelegate
 
 
@@ -26,14 +28,14 @@
     QSection *section = [_tableView.root getVisibleSectionForIndex:indexPath.section];
     QElement * element = [section getVisibleElementForIndex: indexPath.row];
 
-    [element selectedAccessory:_tableView controller:_tableView.controller indexPath:indexPath];
+    [element selectedAccessory:_tableView indexPath:indexPath];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     QSection *section = [_tableView.root getVisibleSectionForIndex:indexPath.section];
     QElement * element = [section getVisibleElementForIndex: indexPath.row];
 
-    [element selected:_tableView controller:_tableView.controller indexPath:indexPath];
+    [element selected:_tableView indexPath:indexPath];
 }
 
 - (id<UITableViewDelegate, UIScrollViewDelegate>)initForTableView:(QuickDialogTableView *)tableView {

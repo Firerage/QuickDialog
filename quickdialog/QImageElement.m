@@ -63,7 +63,7 @@
     }
 }
 
-- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller {
+- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView {
     QImageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"QuickformImageElement"];
     if (cell == nil) {
         cell = [[QImageTableViewCell alloc] init];
@@ -73,10 +73,10 @@
     return cell;
 }
 
-- (void)selected:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller indexPath:(NSIndexPath *)path {
+- (void)selected:(QuickDialogTableView *)tableView indexPath:(NSIndexPath *)indexPath indexPath:(NSIndexPath *)path {
     [tableView deselectRowAtIndexPath:path animated:YES];
 
-    [self presentImagePicker:tableView controller:controller path:path];
+    [self presentImagePicker:tableView path:path];
 }
 
 - (void)fetchValueIntoObject:(id)obj
@@ -87,7 +87,18 @@
 	[obj setValue:self.imageValue forKey:_key];
 }
 
-- (void)presentImagePicker:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller path:(NSIndexPath *)path {
+- (void)displayViewController:(UIViewController *)newController {
+    if ([newController isKindOfClass:[UINavigationController class]]) {
+        [_viewController presentViewController:newController animated:YES completion:nil];
+    }
+    else if (_viewController.navigationController != nil){
+        [_viewController.navigationController pushViewController:newController animated:YES];
+    } else {
+        [_viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:newController] animated:YES completion:nil];
+    }
+}
+
+- (void)presentImagePicker:(QuickDialogTableView *)tableView path:(NSIndexPath *)path {
     if ([UIImagePickerController isSourceTypeAvailable:_source]) {
         self.imagePickerController.sourceType = _source;
     } else {
@@ -97,7 +108,7 @@
 
     BOOL isPhone = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone;
     if (isPhone) {
-        [controller displayViewController:self.imagePickerController];
+        [self displayViewController:self.imagePickerController];
     } else {
         UITableViewCell *tableViewCell = [tableView cellForRowAtIndexPath:path];
         if ([tableViewCell isKindOfClass:[QImageTableViewCell class]]) {

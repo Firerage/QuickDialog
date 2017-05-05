@@ -77,7 +77,6 @@
 
 + (QRootElement *)createDetailsForm {
     QRootElement *details = [[QRootElement alloc] init];
-    details.presentationMode = QPresentationModeModalForm;
     details.title = @"Details";
     details.controllerName = @"AboutController";
     details.grouped = YES;

@@ -13,7 +13,7 @@
 //
 
 
-#import "QRootElement.h"
+#import "QElement.h"
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
@@ -21,7 +21,7 @@
   QDateTimeElement: allows you to edit dates, time, or date+time values. Editing occurs in a new controller that is pushed automatically.
 */
 
-@interface QDateTimeElement : QRootElement {
+@interface QDateTimeElement : QElement {
     NSDate * _dateValue;
 @private
     UIDatePickerMode _mode;

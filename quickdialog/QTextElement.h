@@ -17,20 +17,14 @@
 
 #import "QRootElement.h"
 
-/**
-  QTextElement: freeform text, which is rendered with the font provided.
-*/
+@interface QTextElement : QElement
 
-@interface QTextElement : QRootElement {
+@property(nonatomic, strong) UIColor *color;
 
-@protected
-    NSString *_text;
-    UIColor *_color;
-}
+- (QTextElement *)initWithText:(NSString *)text;
 
-@property(nonatomic, strong) NSString *text;
-@property(nonatomic, retain) UIColor *color;
-@property(nonatomic, strong) UIImage *image;
+- (QTextElement *)initWithText:(NSString *)text detailText:(NSString *)detailText;
 
-- (QTextElement *)initWithText:(NSString *)string;
+- (QTextElement *)initWithKey:(NSString *)key text:(NSString *)text detailText:(NSString *)detailText;
+
 @end

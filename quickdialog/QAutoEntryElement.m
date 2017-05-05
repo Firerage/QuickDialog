@@ -44,7 +44,7 @@
 {
     self = [self init];
     if (self) {
-        _title = string;
+        self.title = string;
         textValue = param;
         placeholder = string1;
     }
@@ -52,7 +52,7 @@
 }
 
 
-- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller {
+- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView {
     
     QAutoEntryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"QuickformAutoEntryElement"];
     if (cell==nil){
@@ -69,9 +69,9 @@
     return cell;
 }
 
-- (void)selected:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller indexPath:(NSIndexPath *)indexPath {
+- (void)selected:(QuickDialogTableView *)tableView indexPath:(NSIndexPath *)indexPath {
     if(self.enabled){
-        [super selected:tableView controller:controller indexPath:indexPath];
+        [super selected:tableView indexPath:indexPath];
     }
 }
 

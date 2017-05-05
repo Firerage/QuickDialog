@@ -37,7 +37,7 @@
 }
 
 
-- (QElement *)initWithValue:(float)value {
+- (QFloatElement *)initWithValue:(float)value {
     self = [super init];
     if (self) {
         _floatValue = value;
@@ -57,22 +57,23 @@
 - (void)valueChanged:(UISlider *)slider {
     self.floatValue = slider.value;
 
-    [self handleEditingChanged];
+    if (self.onValueChanged) {
+        self.onValueChanged(self);
+    };
 }
 
-- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller {
+- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView {
     QFloatTableViewCell *cell = [[QFloatTableViewCell alloc] initWithFrame:CGRectZero];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     [cell.slider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
     cell.slider.minimumValue = _minimumValue;
     cell.slider.maximumValue = _maximumValue;
     cell.slider.value = _floatValue;
     
-    cell.textLabel.text = _title;
+    cell.textLabel.text = self.title;
     cell.detailTextLabel.text = [_value description];
     cell.imageView.image = _image;
-    cell.accessoryType = self.accessoryType != UITableViewCellAccessoryNone ? self.accessoryType : ( self.sections!= nil || self.controllerAction!=nil ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone);
-    cell.selectionStyle = self.sections!= nil || self.controllerAction!=nil ? UITableViewCellSelectionStyleBlue: UITableViewCellSelectionStyleNone;
     
     return cell;
 }

@@ -31,7 +31,7 @@ NSString * const QPickerTableViewCellIdentifier = @"QPickerTableViewCell";
     return self;
 }
 
-- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller
+- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView
 {
     QPickerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:QPickerTableViewCellIdentifier];
     if (cell == nil) {

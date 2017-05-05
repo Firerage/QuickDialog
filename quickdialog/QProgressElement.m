@@ -27,7 +27,7 @@
     self.bar.progress = progress;
 }
 
-- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller
+- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView
 {
     QTableViewCell *const cell = [[QTableViewCell alloc] init];
     [cell applyAppearanceForElement:self];

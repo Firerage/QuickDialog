@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2C542394145ADEBD0026A152 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D80B0E3913E052DF00FA85CA /* Foundation.framework */; };
 		2CE450B3145AE43D00B77D0E /* libQuickDialog.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C542393145ADEBD0026A152 /* libQuickDialog.a */; };
+		449FD7CD1EBC2C3D00E3240F /* QRootElement+Appearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 449FD7CC1EBC2C3D00E3240F /* QRootElement+Appearance.m */; };
 		5C50E03E6D6DEADFB8AC3B9F /* QImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C50EC55C88A1E8DA1F37392 /* QImageTableViewCell.m */; };
 		5C50E05C26FCC73324CD9151 /* QTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C50EF3E278942129829CFEA /* QTableViewCell.m */; };
 		5C50E0AD796532BBBF8A0A75 /* QEntryElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C50EF3AFF492070554414E8 /* QEntryElement.h */; };
@@ -196,6 +197,8 @@
 /* Begin PBXFileReference section */
 		2C542393145ADEBD0026A152 /* libQuickDialog.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libQuickDialog.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CE450A9145ADFAC00B77D0E /* libQuickDialog-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "libQuickDialog-Prefix.pch"; path = "libQuickDialog/libQuickDialog-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		449FD7CB1EBC2C3D00E3240F /* QRootElement+Appearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QRootElement+Appearance.h"; sourceTree = "<group>"; };
+		449FD7CC1EBC2C3D00E3240F /* QRootElement+Appearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "QRootElement+Appearance.m"; sourceTree = "<group>"; };
 		5C50E0150C6C96B6F803CF67 /* QuickDialogController+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QuickDialogController+Helpers.h"; sourceTree = "<group>"; };
 		5C50E02C508EFBBD39CFF860 /* QRootElement+JsonBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QRootElement+JsonBuilder.h"; sourceTree = "<group>"; };
 		5C50E02C8F4B4A90F96E33D6 /* QMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMapAnnotation.h; sourceTree = "<group>"; };
@@ -554,6 +557,8 @@
 				5C50E9A0D370C639F09B3CB1 /* QuickDialogController+Animations.m */,
 				5C50EFF907143A8841F8E239 /* QuickDialogController+Navigation.h */,
 				5C50E31A761571C95BE42711 /* QuickDialogController+Navigation.m */,
+				449FD7CB1EBC2C3D00E3240F /* QRootElement+Appearance.h */,
+				449FD7CC1EBC2C3D00E3240F /* QRootElement+Appearance.m */,
 			);
 			path = quickdialog;
 			sourceTree = "<group>";
@@ -564,15 +569,15 @@
 				5C50E4957330C22B16CE6938 /* QWebViewController.m */,
 				5C50E5DF83EB5A046AD7FA16 /* QMapViewController.h */,
 				5C50E02C8F4B4A90F96E33D6 /* QMapAnnotation.h */,
-				5C50E71B9FC6B0B50346A5D0 /* QPickerTableViewCell.h */,
 				5C50E2552AD0DC4C813AF542 /* QPickerTabDelimitedStringParser.h */,
-				5C50EED1BB826D7F7B08055A /* QPickerElement.h */,
 				5C50E56A3F1DC223669D7417 /* QMapAnnotation.m */,
 				5C50EE213AF724E6D1B766D5 /* QPickerValueParser.h */,
-				5C50EA8E14F439693332B438 /* QPickerTableViewCell.m */,
 				5C50E498C230A92D1BD3C3EA /* QPickerTabDelimitedStringParser.m */,
 				5C50E5B0F3DD0967B8186785 /* QMapElement.m */,
 				5C50EB6C6D11D1CE7DA80298 /* QWebElement.h */,
+				5C50E71B9FC6B0B50346A5D0 /* QPickerTableViewCell.h */,
+				5C50EA8E14F439693332B438 /* QPickerTableViewCell.m */,
+				5C50EED1BB826D7F7B08055A /* QPickerElement.h */,
 				5C50E32E2F0A5EF03EB569E9 /* QPickerElement.m */,
 				5C50E93B5273C6D9050767C6 /* QWebElement.m */,
 				5C50EFD565900926223F50D4 /* QMapViewController.m */,
@@ -967,6 +972,7 @@
 				5C50EFD5861E1FE78AD17F06 /* QWebElement.m in Sources */,
 				5C50E65C85040A1F79EAD648 /* QMapViewController.m in Sources */,
 				5C50EFADB34DF61735763BCF /* UIColor+ColorUtilities.m in Sources */,
+				449FD7CD1EBC2C3D00E3240F /* QRootElement+Appearance.m in Sources */,
 				5C50EAFF93AE7374E94BEBAE /* QColorPickerElement.m in Sources */,
 				5C50E98463F3848733205310 /* QMailElement.m in Sources */,
 			);

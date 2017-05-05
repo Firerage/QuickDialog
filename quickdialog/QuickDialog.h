@@ -27,6 +27,7 @@
 #import "QAppearance.h"
 #import "QFlatAppearance.h"
 #import "QElement+Appearance.h"
+#import "QRootElement+Appearance.h"
 
 #import "QTableViewCell.h"
 #import "QRootElement+JsonBuilder.h"

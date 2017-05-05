@@ -22,7 +22,7 @@
     self = [super init];
     if (self!=nil){
         _url = url;
-        _title = title;
+        self.title = title;
     }
     return self;
 }
@@ -32,7 +32,7 @@
     self = [super init];
     if (self!=nil){
         _url = nil;
-        _title = title;
+        self.title = title;
 		_html = html;
     }
     return self;
@@ -42,25 +42,25 @@
     _url = [[NSBundle mainBundle] pathForResource:filename ofType:@"html"];
 }
 
-- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller {
+- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView {
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    UITableViewCell *cell = [super getCellForTableView:tableView controller:controller];
+    UITableViewCell *cell = [super getCellForTableView:tableView];
     cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     return cell;
 }
 
 
-- (void)selected:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller indexPath:(NSIndexPath *)path {
+- (void)selected:(QuickDialogTableView *)tableView indexPath:(NSIndexPath *)indexPath indexPath:(NSIndexPath *)path {
     [self performAction];
 	if (_html) {
 		QWebViewController *webController = [[QWebViewController alloc] initWithHTML:_html];
         webController.title = self.title;
-		[controller displayViewController:webController];
+//		[controller displayViewController:webController];
 	}
 	else {
         if ([_url hasPrefix:@"http"] || [_url hasPrefix:@"/"]) {
 			QWebViewController *webController = [[QWebViewController alloc] initWithUrl:_url];
-			[controller displayViewController:webController withPresentationMode:self.presentationMode];
+//			[controller displayViewController:webController withPresentationMode:self.presentationMode];
 		} else {
 			[[UIApplication sharedApplication] openURL:[NSURL URLWithString:_url]];
 			[tableView deselectRowAtIndexPath:path animated:NO];

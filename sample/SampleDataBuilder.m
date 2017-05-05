@@ -74,7 +74,7 @@
 	return subForm;
 }
 
-+ (QElement *)reallyLongList {
++ (QRootElement *)reallyLongList {
     QRootElement *subForm = [[QRootElement alloc] init];
     subForm.grouped = YES;
     subForm.title = @"Really long list";
@@ -84,7 +84,7 @@
         QBooleanElement *bool1 = [[QBooleanElement alloc] initWithTitle:[NSString stringWithFormat:@"Option %d", i] BoolValue:(i % 3 == 0)];
         bool1.onImage = [UIImage imageNamed:@"imgOn"];
         bool1.offImage = [UIImage imageNamed:@"imgOff"];
-        bool1.onValueChanged = ^(QRootElement *el){
+        bool1.onValueChanged = ^(QElement *el){
             NSLog(@"Bool selected! ");
         };
         [subsection addElement:bool1];
@@ -151,7 +151,7 @@
     return sliders;
 }
 
-+ (QElement *)createSampleControls {
++ (QRootElement *)createSampleControls {
     QRootElement *root = [[QRootElement alloc] init];
     root.grouped = YES;
     root.title = @"Sample Controls";
@@ -269,7 +269,7 @@
     for (QSection *section in root.sections) {
         for (QElement *e in section.elements) {
             if ([e isKindOfClass:[QEntryElement class]]) {
-                ((QEntryElement *)e).onValueChanged = ^(QRootElement *el){
+                ((QEntryElement *)e).onValueChanged = ^(QElement *el){
                     NSLog(@"Value changed: %@", el);
                 };
             }
@@ -283,7 +283,7 @@
 }
 
 
-+ (QElement *)createRadioRoot {
++ (QRootElement *)createRadioRoot {
     QRootElement *root = [[QRootElement alloc] init];
     root.controllerName = @"ExampleViewController";
     root.title = @"Radio";
@@ -307,7 +307,7 @@
     return root;
 }
 
-+ (QElement *)createPickerRoot
++ (QRootElement *)createPickerRoot
 {
     QRootElement *root = [[QRootElement alloc] init];
     root.controllerName = @"ExampleViewController";
@@ -320,7 +320,7 @@
     
     __weak QPickerElement *_simplePickerEl = simplePickerEl;
 
-    simplePickerEl.onValueChanged = ^(QRootElement *el){
+    simplePickerEl.onValueChanged = ^(QElement *el){
         NSLog(@"Selected indexes: %@", [_simplePickerEl.selectedIndexes componentsJoinedByString:@","]);
     };
 
@@ -339,7 +339,7 @@
     
     periodPickerEl.valueParser = periodParser;
     __weak QPickerElement *_periodPickerEl = periodPickerEl;
-    periodPickerEl.onValueChanged = ^(QRootElement *el){ NSLog(@"New value: %@", _periodPickerEl.value); };
+    periodPickerEl.onValueChanged = ^(QElement *el){ NSLog(@"New value: %@", _periodPickerEl.value); };
     
     [customParserSection addElement:periodPickerEl];
     [root addSection:customParserSection];
@@ -347,7 +347,7 @@
     return root;
 }
 
-+ (QElement *)createSelectRoot
++ (QRootElement *)createSelectRoot
 {
     QRootElement *root = [[QRootElement alloc] init];
     root.controllerName = @"ExampleViewController";
@@ -474,18 +474,18 @@
 
     QBadgeElement *badge3 = [[QBadgeElement alloc] initWithTitle:@"With some action" Value:@"123"];
     badge3.badgeColor = [UIColor purpleColor];
-    QSection *sec = [[QSection alloc] initWithTitle:@"Jazzin.."];
-    [badge3 addSection:sec];
+//    QSection *sec = [[QSection alloc] initWithTitle:@"Jazzin.."];
+//    [badge3 addSection:sec];
 
     QBadgeElement *b5 = [[QBadgeElement alloc] initWithTitle:@"With a really really really long title" Value:@"YEAH"];
     [s2 addElement:b5];
 
     [s2 addElement:badge3];
-    [sec addElement:[[QBadgeElement alloc] initWithTitle:@"Test" Value:@"0"]];
-    [sec addElement:[[QBadgeElement alloc] initWithTitle:@"Test 2" Value:@"10"]];
-    [sec addElement:[[QBadgeElement alloc] initWithTitle:@"Test 3" Value:@"200"]];
-    [sec addElement:[[QBadgeElement alloc] initWithTitle:@"Test 4" Value:@"1000"]];
-    [sec addElement:[[QBadgeElement alloc] initWithTitle:@"Test 5" Value:@"TEST"]];
+//    [sec addElement:[[QBadgeElement alloc] initWithTitle:@"Test" Value:@"0"]];
+//    [sec addElement:[[QBadgeElement alloc] initWithTitle:@"Test 2" Value:@"10"]];
+//    [sec addElement:[[QBadgeElement alloc] initWithTitle:@"Test 3" Value:@"200"]];
+//    [sec addElement:[[QBadgeElement alloc] initWithTitle:@"Test 4" Value:@"1000"]];
+//    [sec addElement:[[QBadgeElement alloc] initWithTitle:@"Test 5" Value:@"TEST"]];
     
     QSection *s3 = [[QSection alloc] initWithTitle:@"Labeling policies"];
     
@@ -690,7 +690,7 @@
     return root;
 }
 
-+ (QElement *)createDynamicSectionRoot {
++ (QRootElement *)createDynamicSectionRoot {
     QRootElement *const root = [[QRootElement alloc] init ];
     root.controllerName = @"ExampleViewController";
     root.title = @"Dynamic Data Sections";
@@ -741,58 +741,67 @@
 	QSection *sectionSamples = [[QSection alloc] init];
     sectionSamples.footer = @"Hey there, this is a footer.";
     sectionSamples.headerView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"quickdialog"]];
-    [sectionSamples addElement:[[QRootElement alloc] initWithJSONFile:@"loginform"]];
-    [sectionSamples addElement:[self createSampleControls]];
-    [sectionSamples addElement:[self createSampleFormRoot]];
-    [sectionSamples addElement:[self reallyLongList]];
-
-    QSection *sectionElements = [[QSection alloc] initWithTitle:@"Usage examples"];
-
-    [sectionElements addElement:[self createLabelsRoot]];
-    [sectionElements addElement:[self createEntryRoot]];
-    [sectionElements addElement:[self createSlidersRoot]];
-    [sectionElements addElement:[self createRadioRoot]];
-    [sectionElements addElement:[[QRootElement alloc] initWithJSONFile:@"navigation"]];
-    [sectionElements addElement:[self createPickerRoot]];
-    [sectionElements addElement:[self createSelectRoot]];
-    [sectionElements addElement:[self createMailRoot]];
-    [sectionElements addElement:[self createWebAndMapRoot]];
-    [sectionElements addElement:[self createTextRoot]];
-    [sectionElements addElement:[self createDateTimeRoot]];
-    [sectionElements addElement:[self createSortingRoot]];
-    [sectionElements addElement:[self createDynamicSectionRoot]];
-	[sectionElements addElement:[self createWithInitDefault]];
-	[sectionElements addElement:[self createWithInitAndKey]];
-
-    QRootElement *samplesDisabled = (QRootElement *)[self createSampleControls];
-    samplesDisabled.title = @"Disabled Elements";
-    for(QSection *section in samplesDisabled.sections)
-    {
-        for(QElement *element in section.elements)
-        {
-            element.enabled = NO;
-        }
-    }
-    [sectionElements addElement:samplesDisabled];
+    
+    QTextElement *textElement = [[QTextElement alloc] initWithKey:@"login" text:@"Login Form" detailText:nil];
+    
+    [sectionSamples addElement:textElement];
+    
+    QTextElement *textElement2 = [[QTextElement alloc] initWithKey:@"picker" text:@"Picker" detailText:nil];
+    
+    [sectionSamples addElement:textElement2];
+    
+    
+//    [sectionSamples addElement:[self createSampleControls]];
+//    [sectionSamples addElement:[self createSampleFormRoot]];
+//    [sectionSamples addElement:[self reallyLongList]];
+//
+//    QSection *sectionElements = [[QSection alloc] initWithTitle:@"Usage examples"];
+//
+//    [sectionElements addElement:[self createLabelsRoot]];
+//    [sectionElements addElement:[self createEntryRoot]];
+//    [sectionElements addElement:[self createSlidersRoot]];
+//    [sectionElements addElement:[self createRadioRoot]];
+//    [sectionElements addElement:[[QRootElement alloc] initWithJSONFile:@"navigation"]];
+//    [sectionElements addElement:[self createPickerRoot]];
+//    [sectionElements addElement:[self createSelectRoot]];
+//    [sectionElements addElement:[self createMailRoot]];
+//    [sectionElements addElement:[self createWebAndMapRoot]];
+//    [sectionElements addElement:[self createTextRoot]];
+//    [sectionElements addElement:[self createDateTimeRoot]];
+//    [sectionElements addElement:[self createSortingRoot]];
+//    [sectionElements addElement:[self createDynamicSectionRoot]];
+//	[sectionElements addElement:[self createWithInitDefault]];
+//	[sectionElements addElement:[self createWithInitAndKey]];
+//
+//    QRootElement *samplesDisabled = (QRootElement *)[self createSampleControls];
+//    samplesDisabled.title = @"Disabled Elements";
+//    for(QSection *section in samplesDisabled.sections)
+//    {
+//        for(QElement *element in section.elements)
+//        {
+//            element.enabled = NO;
+//        }
+//    }
+//    [sectionElements addElement:samplesDisabled];
 
     [root addSection:sectionSamples];
-    [root addSection:sectionElements];
+//    [root addSection:sectionElements];
 
-    if (objc_getClass("NSJSONSerialization")!=nil) {
-        QSection *sectionJson = [[QSection alloc] initWithTitle:@"JSON Samples"];
-        [sectionJson addElement:[[QRootElement alloc] initWithJSONFile:@"loginform"]];
-        [sectionJson addElement:[[QRootElement alloc] initWithJSONFile:@"sample"]];
-        [sectionJson addElement:[[QRootElement alloc] initWithJSONFile:@"jsondatasample"]];
-        [sectionJson addElement:[[QRootElement alloc] initWithJSONFile:@"jsonadvancedsample"]];
-        [sectionJson addElement:[[QRootElement alloc] initWithJSONFile:@"jsonremote"]];
-
-
-        NSString *jsonSample = @"{\"title\": \"In memory struct\",\n"
-                            "    \"controllerName\": \"LoginController\", \"sections\":[]}";
-        id const parsedJson = [NSJSONSerialization JSONObjectWithData:[jsonSample dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableLeaves error:nil];
-        [sectionJson addElement:[[QRootElement alloc] initWithJSON:parsedJson andData:nil]];
-        [root addSection:sectionJson];
-    }
+//    if (objc_getClass("NSJSONSerialization")!=nil) {
+//        QSection *sectionJson = [[QSection alloc] initWithTitle:@"JSON Samples"];
+//        [sectionJson addElement:[[QRootElement alloc] initWithJSONFile:@"loginform"]];
+//        [sectionJson addElement:[[QRootElement alloc] initWithJSONFile:@"sample"]];
+//        [sectionJson addElement:[[QRootElement alloc] initWithJSONFile:@"jsondatasample"]];
+//        [sectionJson addElement:[[QRootElement alloc] initWithJSONFile:@"jsonadvancedsample"]];
+//        [sectionJson addElement:[[QRootElement alloc] initWithJSONFile:@"jsonremote"]];
+//
+//
+//        NSString *jsonSample = @"{\"title\": \"In memory struct\",\n"
+//                            "    \"controllerName\": \"LoginController\", \"sections\":[]}";
+//        id const parsedJson = [NSJSONSerialization JSONObjectWithData:[jsonSample dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableLeaves error:nil];
+//        [sectionJson addElement:[[QRootElement alloc] initWithJSON:parsedJson andData:nil]];
+//        [root addSection:sectionJson];
+//    }
 
     return root;
 }

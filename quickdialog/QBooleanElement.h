@@ -25,18 +25,15 @@
     UIImage *_offImage;
 }
 
-@property(nonatomic, retain) UIImage *onImage;
-@property(nonatomic, retain) UIImage *offImage;
-@property(nonatomic, readwrite, assign) NSNumber *numberValue;
-@property (nonatomic) BOOL boolValue;
+@property (nonatomic, retain) UIImage *onImage;
+@property (nonatomic, retain) UIImage *offImage;
+@property (nonatomic, readwrite, assign) NSNumber *numberValue;
+@property (nonatomic, assign) BOOL boolValue;
 
 - (QBooleanElement *)initWithTitle:(NSString *)title BoolValue:(BOOL)value;
-
 
 - (void)setOnImageName:(NSString *)name;
 
 - (void)setOffImageName:(NSString *)name;
 
-
-- (void)switched:(id)switched;
 @end

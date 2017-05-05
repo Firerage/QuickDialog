@@ -33,15 +33,15 @@
 - (QBadgeElement *)initWithTitle:(NSString *)title Value:(NSString *)value {
     self = [self init];
 	if (self) {
-		_title = title;
+		self.title = title;
 		_badge = value;
 	}
     return self;
 }
 
-- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller {
+- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView {
     QBadgeTableCell *cell = [[QBadgeTableCell alloc] init];
-    cell.textLabel.text = _title;
+    cell.textLabel.text = self.title;
     [cell applyAppearanceForElement:self];
     cell.badgeLabel.textColor = _badgeTextColor;
 
@@ -54,8 +54,7 @@
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.imageView.image = _image;
-    cell.accessoryType = self.sections!= nil || self.controllerAction!=nil ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
-    cell.selectionStyle = self.sections!= nil || self.controllerAction!=nil ? UITableViewCellSelectionStyleBlue: UITableViewCellSelectionStyleNone;
+
     return cell;
 }
 

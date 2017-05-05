@@ -34,22 +34,22 @@
     return self;
 }
 
-- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller {
+- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView {
     QTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"QuickformButtonElement"];
     if (cell == nil){
         cell= [[QTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"QuickformButtonElement"];
     }
     [cell applyAppearanceForElement:self];
-    cell.textLabel.text = _title;
+    cell.textLabel.text = self.title;
     cell.textLabel.textAlignment = self.appearance.buttonAlignment;
     cell.textLabel.font = self.appearance.labelFont;
     cell.textLabel.textColor = self.enabled ? self.appearance.actionColorEnabled : self.appearance.actionColorDisabled;
     return cell;
 }
 
-- (void)selected:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller indexPath:(NSIndexPath *)indexPath {
+- (void)selected:(QuickDialogTableView *)tableView indexPath:(NSIndexPath *)indexPath {
     if (self.enabled) {
-        [super selected:tableView controller:controller indexPath:indexPath];
+        [super selected:tableView indexPath:indexPath];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

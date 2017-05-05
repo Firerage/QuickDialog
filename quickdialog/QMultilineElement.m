@@ -37,8 +37,8 @@
     return self;
 }
 
-- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller {
-    QEntryTableViewCell *cell = (QEntryTableViewCell *) [super getCellForTableView:tableView controller:controller];
+- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView {
+    QEntryTableViewCell *cell = (QEntryTableViewCell *) [super getCellForTableView:tableView];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.selectionStyle = self.enabled ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
     cell.textField.enabled = NO;
@@ -48,7 +48,7 @@
 }
 
 
-- (void)selected:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller indexPath:(NSIndexPath *)indexPath
+- (void)selected:(QuickDialogTableView *)tableView indexPath:(NSIndexPath *)indexPath
 {
     QMultilineTextViewController *textController = [[QMultilineTextViewController alloc] initWithTitle:self.title];
     textController.entryElement = self;
@@ -71,7 +71,7 @@
         [[tableView cellForElement:weakSelf] setNeedsDisplay];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     };
-    [controller displayViewController:textController withPresentationMode:self.presentationMode];
+//    [controller displayViewController:textController withPresentationMode:self.presentationMode];
 }
 
 - (void)fetchValueIntoObject:(id)obj

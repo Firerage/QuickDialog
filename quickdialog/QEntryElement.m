@@ -44,16 +44,14 @@
 - (QEntryElement *)initWithTitle:(NSString *)title Value:(NSString *)value Placeholder:(NSString *)placeholder {
     self = [self init];
     if (self) {
-        _title = title;
+        self.title = title;
         _textValue = value;
         _placeholder = placeholder;
     }
     return self;
 }
 
-- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller {
-
-    self.controller = controller;
+- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView {
 
     QEntryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"QuickformEntryElement"];
     if (cell==nil){
@@ -70,12 +68,11 @@
     return cell;
 }
 
-- (void)selected:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller indexPath:(NSIndexPath *)indexPath {
-    [super selected:tableView controller:controller indexPath:indexPath];
-
+- (void)selected:(QuickDialogTableView *)tableView indexPath:(NSIndexPath *)indexPath {
+    [super selected:tableView indexPath:indexPath];
 }
 
-- (void) fieldDidEndEditing
+- (void)fieldDidEndEditing
 {
     [self performAction];
 }
@@ -96,8 +93,9 @@
     if(self.delegate && [self.delegate respondsToSelector:@selector(QEntryEditingChangedForElement:andCell:)]){
         [self.delegate QEntryEditingChangedForElement:self andCell:cell];
     }
-
-    [self handleEditingChanged];
+    if (self.onValueChanged) {
+        self.onValueChanged(self);
+    }
 }
 
 #pragma mark - UITextInputTraits

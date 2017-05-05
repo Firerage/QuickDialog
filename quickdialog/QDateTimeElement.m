@@ -18,7 +18,6 @@
 
 #import "QDateTimeElement.h"
 #import "QDateTimeInlineElement.h"
-#import "QuickDialogController.h"
 #import "QuickDialog.h"
 
 
@@ -35,14 +34,14 @@
 
 - (void)setMode:(UIDatePickerMode)mode {
 	_mode = mode;
-	[[self sections] removeAllObjects];
+//	[[self sections] removeAllObjects];
 	[self initializeRoot];
 }
 
 - (void)setMinuteInterval:(NSInteger)minuteInterval
 {
     _minuteInterval = minuteInterval;
-    self.sections = nil;
+//    self.sections = nil;
     [self initializeRoot];
 }
 
@@ -71,7 +70,7 @@
 
 - (QDateTimeElement *)init {
     self = [super init];
-    _grouped = YES;
+//    _grouped = YES;
     _mode = UIDatePickerModeDateAndTime;
     [self initializeRoot];
     return self;
@@ -80,17 +79,17 @@
 - (QDateTimeElement *)initWithTitle:(NSString *)title date:(NSDate *)date {
     self = [super init];
     if (self!=nil){
-        _grouped = YES;
+//        _grouped = YES;
         _mode = UIDatePickerModeDateAndTime;
-		_title = title;
+//		_title = title;
         _dateValue = date;
         [self updateElements];
     }
     return self;
 }
 
-- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller {
-    UITableViewCell *cell = [super getCellForTableView:tableView controller:controller];
+- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView {
+    UITableViewCell *cell = [super getCellForTableView:tableView];
 
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     switch (_mode) {
@@ -132,23 +131,23 @@
         
         [section addElement:timeElement];
     }
-    [self addSection:section];
+//    [self addSection:section];
 }
 
 - (void)updateElements
 {
-    QDateTimeInlineElement *dateElement = (QDateTimeInlineElement *)[self elementWithKey:@"date"];
-    QDateTimeInlineElement *timeElement = (QDateTimeInlineElement *)[self elementWithKey:@"time"];
-    
-    NSDate *dateForElements = (_dateValue == nil) ? NSDate.date : _dateValue;
-    
-    if (dateElement != nil) {
-        dateElement.dateValue = dateForElements;
-    }
-    
-    if (timeElement != nil) {
-        timeElement.dateValue = dateForElements;
-    }
+//    QDateTimeInlineElement *dateElement = (QDateTimeInlineElement *)[self elementWithKey:@"date"];
+//    QDateTimeInlineElement *timeElement = (QDateTimeInlineElement *)[self elementWithKey:@"time"];
+//    
+//    NSDate *dateForElements = (_dateValue == nil) ? NSDate.date : _dateValue;
+//    
+//    if (dateElement != nil) {
+//        dateElement.dateValue = dateForElements;
+//    }
+//    
+//    if (timeElement != nil) {
+//        timeElement.dateValue = dateForElements;
+//    }
 }
 
 - (void)fetchValueIntoObject:(id)obj {
@@ -157,49 +156,49 @@
     [obj setValue:_dateValue forKey:_key];
 }
 
-- (void)selected:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller indexPath:(NSIndexPath *)indexPath {
+- (void)selected:(QuickDialogTableView *)tableView indexPath:(NSIndexPath *)indexPath {
 
-    if (self.sections==nil)
-            return;
+//    if (self.sections==nil)
+//            return;
 
-    QuickDialogController * newController = [controller controllerForRoot:self];
-    newController.quickDialogTableView.scrollEnabled = NO;
-    [controller displayViewController:newController];
-
-	__weak QuickDialogController *controllerForBlock = newController;
-	
-    newController.willDisappearCallback = ^{
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-
-        [((QSection *)[controllerForBlock.root.sections objectAtIndex:0]) fetchValueIntoObject:dict];
-
-        NSDate *date;
-        NSDate *time;
-        if (_mode == UIDatePickerModeTime){
-            time = [dict valueForKey:@"time"];
-            date = [NSDate date];
-        }
-        else if (_mode == UIDatePickerModeDate){
-            date = [dict valueForKey:@"date"];
-            time = [NSDate date];
-        }
-        else if (_mode == UIDatePickerModeDateAndTime){
-            date = [dict valueForKey:@"date"];
-            time = [dict valueForKey:@"time"];
-        } else {
-            NSLog(@"This control was not created to handle this time of UIDatePickerMode");
-        }
-
-        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
-        NSDateComponents *timeComponents = [[NSCalendar currentCalendar] components:kCFCalendarUnitHour | kCFCalendarUnitMinute | kCFCalendarUnitSecond fromDate:time];
-
-        [components setHour:[timeComponents hour]];
-        [components setMinute:[timeComponents minute]];
-        [components setSecond:[timeComponents second]];
-        self.dateValue = [[NSCalendar currentCalendar] dateFromComponents:components];
-    };
-
-    [newController.quickDialogTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+//    QuickDialogController * newController = [controller controllerForRoot:self];
+//    newController.quickDialogTableView.scrollEnabled = NO;
+//    [controller displayViewController:newController];
+//
+//	__weak QuickDialogController *controllerForBlock = newController;
+//	
+//    newController.willDisappearCallback = ^{
+//        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+//
+//        [((QSection *)[controllerForBlock.root.sections objectAtIndex:0]) fetchValueIntoObject:dict];
+//
+//        NSDate *date;
+//        NSDate *time;
+//        if (_mode == UIDatePickerModeTime){
+//            time = [dict valueForKey:@"time"];
+//            date = [NSDate date];
+//        }
+//        else if (_mode == UIDatePickerModeDate){
+//            date = [dict valueForKey:@"date"];
+//            time = [NSDate date];
+//        }
+//        else if (_mode == UIDatePickerModeDateAndTime){
+//            date = [dict valueForKey:@"date"];
+//            time = [dict valueForKey:@"time"];
+//        } else {
+//            NSLog(@"This control was not created to handle this time of UIDatePickerMode");
+//        }
+//
+//        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
+//        NSDateComponents *timeComponents = [[NSCalendar currentCalendar] components:kCFCalendarUnitHour | kCFCalendarUnitMinute | kCFCalendarUnitSecond fromDate:time];
+//
+//        [components setHour:[timeComponents hour]];
+//        [components setMinute:[timeComponents minute]];
+//        [components setSecond:[timeComponents second]];
+//        self.dateValue = [[NSCalendar currentCalendar] dateFromComponents:components];
+//    };
+//
+//    [newController.quickDialogTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
 
 }
 
